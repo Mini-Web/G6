@@ -1538,6 +1538,7 @@ export default abstract class AbstractGraph extends EventEmitter implements IAbs
 
     const trees: ComboTree[] = children.map(elementId => {
       const item = this.findById(elementId);
+      const model = item.getModel();
 
       let type = '';
       if (item.getType) type = item.getType();
@@ -1548,8 +1549,10 @@ export default abstract class AbstractGraph extends EventEmitter implements IAbs
 
       if (type === 'combo') {
         (cItem as ComboConfig).parentId = comboId;
+        model.parentId = comboId;
       } else if (type === 'node') {
         (cItem as NodeConfig).comboId = comboId;
+        model.comboId = comboId;
       }
 
       return cItem;
